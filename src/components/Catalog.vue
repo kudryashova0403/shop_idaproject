@@ -1,6 +1,6 @@
 <template>
     <div class="catalog">
-        <div class="container">
+        <div class="container_title">
             <div class="catalog_title">Каталог</div>
             <div class="sort">
                 <div class="sort-text">
@@ -41,7 +41,7 @@
 </script>
 
 <style scoped>
-    .container {
+    .container_title {
         padding: 40px 100px 60px 100px;
         display: flex;
         justify-content: space-between;

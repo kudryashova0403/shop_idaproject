@@ -2,6 +2,7 @@
     <div id="app">
         <Header/>
         <Catalog/>
+        <Catalog_menu/>
         <router-view/>
     </div>
 </template>
@@ -9,10 +10,11 @@
 <script>
     import Header from "./components/Header";
     import Catalog from "./components/Catalog";
+    import Catalog_menu from "./components/Catalog_menu";
 
     export default {
         name: "app",
-        components: {Catalog, Header}
+        components: {Catalog_menu, Catalog, Header}
     }
 </script>
 
