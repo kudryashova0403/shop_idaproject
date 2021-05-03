@@ -8,7 +8,7 @@
                 <div class="img_item">
                     <img src="../assets/backpack.jpg">
                 </div>
-                <div class="buy">
+                <div class="buy" @click="buyElement">
                     <img src="../assets/buy.svg">
                 </div>
             </div>
@@ -29,6 +29,11 @@
                     return {}
                 }
             }
+        },
+        methods:{
+            buyElement(){
+this.$emit('sendId', this.product.id)
+            }
         }
     }
 </script>
@@ -39,6 +44,7 @@
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
         border-radius: 8px;
         width: 264px;
+        margin: 8px;
     }
 
     .item-container {

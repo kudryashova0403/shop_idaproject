@@ -1,89 +1,53 @@
 <template>
     <div class="catalog_all">
         <div class="catalog_menu">
-            Рюкзаки
-            <p>Футболки</p>
-            <p>Рубашки</p>
+            <p v-for="category in CATEGORIES"
+               :key="category.id"
+               :category="category"
+            >
+                {{category.name}}
+            </p>
         </div>
         <div class="catalog_item">
-            <Catalog_item v-for="product in products"
-            :key="product.id"
-            v-bind:product="product"/>
+            <div class="item"></div>
+            <Catalog_item v-for="product in product"
+                          :key="product.id"
+                          v-bind:product="product"
+                          @sendId="showId"
+            />
         </div>
     </div>
 </template>
 
 <script>
     import Catalog_item from "./Catalog_item";
+    import Header from "./Header";
+    import Catalog from "./Catalog";
+    import {mapActions, mapGetters} from  'vuex'
 
     export default {
         name: "Catalog_menu",
-        components: {Catalog_item},
+        components: {Catalog, Header, Catalog_item},
+        props: ['product'],
+        methods: {
+            ...mapActions([
+                'GET_CATEGORIES_FROM_API'
+            ]),
+            showId(data) {
+                console.log(data)
+            }
+        },
         data() {
             return {
-                products: [
-                    {
-                        id: 1,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 2,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 3,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 4,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 5,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 6,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 7,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 8,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 9,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 10,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 11,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    },
-                    {
-                        id: 12,
-                        name: 'Рюкзак Louis Vuitton Discovery',
-                        price: '150 000 ₽'
-                    }
-                ]
             }
+        },
+        mounted() {
+            this.GET_CATEGORIES_FROM_API()
+        },
+        computed:{
+            ...mapGetters ([
+                'CATEGORIES'
+            ])
         }
     }
 </script>
@@ -101,5 +65,6 @@
     .catalog_item {
         display: flex;
         flex-wrap: wrap;
+        margin-left: 100px;
     }
 </style>
