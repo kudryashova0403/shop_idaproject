@@ -10,7 +10,7 @@
         </div>
         <div class="catalog_item">
             <div class="item"></div>
-            <Catalog_item v-for="product in product"
+            <Catalog_item v-for="product in products_2"
                           :key="product.id"
                           v-bind:product="product"
                           @sendId="showId"
@@ -24,7 +24,7 @@
     import Header from "./Header";
     import Catalog from "./Catalog";
     import {mapActions, mapGetters} from  'vuex'
-
+    import httpClient from '@/vuex/product.js'
     export default {
         name: "Catalog_menu",
         components: {Catalog, Header, Catalog_item},
@@ -35,19 +35,47 @@
             ]),
             showId(data) {
                 console.log(data)
-            }
+            },
         },
         data() {
             return {
+                products_1:[],
+                products_2:[],
+                products_3:[],
+                // all_products:[...products_1,...products_2,...products_3]
             }
         },
         mounted() {
             this.GET_CATEGORIES_FROM_API()
-        },
+                httpClient
+                    .get('/product?category=1')
+                    .then(response=>this.products_1=response.data)
+                    .catch(error=>{
+                        console.log(error)
+                        this.errored=true
+                    })
+            httpClient
+                .get('/product?category=2')
+                .then(response=>this.products_2=response.data)
+                .catch(error=>{
+                    console.log(error)
+                    this.errored=true
+                })
+            httpClient
+                .get('/product?category=3')
+                .then(response=>this.products_3=response.data)
+                .catch(error=>{
+                    console.log(error)
+                    this.errored=true
+                })
+            },
         computed:{
             ...mapGetters ([
                 'CATEGORIES'
-            ])
+            ]),
+            // concatArray(){
+            //   return [...data.products_1, ...data.products_2, ...data.products_3]
+            // }
         }
     }
 </script>

@@ -6,10 +6,10 @@
                     <img src="../assets/star.svg">
                 </div>
                 <div class="img_item">
-                    <img src="../assets/backpack.jpg">
+                    <img :src="('https://frontend-test.idaproject.com'+product.photo)" width="200px">
                 </div>
                 <div class="buy" @click="buyElement">
-                    <img src="../assets/buy.svg">
+                    <img class="buy" src="../assets/buy.svg">
                 </div>
             </div>
             <div class="item_2">{{product.name}}
@@ -22,19 +22,16 @@
 <script>
     export default {
         name: "Catalog_item",
-        props:{
-            product:{
-                type: Object,
-                default(){
-                    return {}
-                }
-            }
-        },
+        props:['product'],
         methods:{
             buyElement(){
 this.$emit('sendId', this.product.id)
             }
-        }
+        },
+        data(){
+            return{
+            }
+        },
     }
 </script>
 
@@ -68,4 +65,5 @@ this.$emit('sendId', this.product.id)
         color: #1F1F1F;
         font-weight: bold
     }
+    .buy :hover{}
 </style>

@@ -1,38 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from "axios";
+import axios from 'axios';
 
-Vue.use(Vuex)
+const instance = axios.create({
+    baseURL: 'https://frontend-test.idaproject.com/api/'
+});
 
-let store=new  Vuex.Store({
-    state:{
-        products:[],
-        categories:[]
-    },
-    mutations:{
-        SET_CATEGORIES_TO_STATE: (state, categories)=>{
-            state.categories=categories;
-        }
-    },
-    actions:{
-        GET_CATEGORIES_FROM_API ({commit}){
-            return axios ('https://frontend-test.idaproject.com/api/product-category',{
-                method: "GET"
-            })
-                .then((categories)=>{
-                    commit('SET_CATEGORIES_TO_STATE', categories.data);
-                    return categories
-                })
-                .catch ((error)=> {
-                console.log(error)
-                    return error;
-            })
-        }
-    },
-    getters:{
-        CATEGORIES(state){
-            return state.categories
-        }
-    }
-})
- export default store;
+instance.interceptors.response.use(response => {
+    return response;
+}, error => {
+    if (!error.response) {
+        console.error(error.data);
+    };
+    return Promise.reject(error.response);
+});
+
+export default instance;
