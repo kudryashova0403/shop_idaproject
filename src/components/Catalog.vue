@@ -42,11 +42,12 @@
 
 <style scoped>
     .container_title {
-        padding: 40px 100px 60px 100px;
         display: flex;
         justify-content: space-between;
         font-size: 16px;
         color: #1F1F1F;
+        height: 50px;
+        padding: 40px 100px
     }
 
     .catalog_title {

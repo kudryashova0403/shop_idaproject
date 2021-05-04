@@ -1,7 +1,7 @@
 <template>
     <div class="catalog_all">
         <div class="catalog_menu">
-            <p v-for="category in categories"
+            <p id="change_category" v-for="category in categories"
                :key="category.id"
                :category="category"
                @click="selectCategories(category.id)"
@@ -105,13 +105,20 @@
         margin-left: 100px;
     }
 
-    .catalog_menu {
+    .catalog_menu{
         width: 160px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #959DAD;
     }
 
     .catalog_item {
         display: flex;
         flex-wrap: wrap;
         margin-left: 100px;
+    }
+    #change_category:hover{
+        text-decoration-line: underline;
+        color: #1F1F1F
     }
 </style>
