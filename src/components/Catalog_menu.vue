@@ -1,24 +1,28 @@
 <template>
-    <div class="catalog_all">
-        <div class="catalog_menu">
-            <p id="change_category" v-for="category in categories"
-               :key="category.id"
-               :category="category"
-               @click="selectCategories(category.id)"
-            >
-                {{category.name}}
-            </p>
-        </div>
-        <div class="catalog_item">
-            <div class="item"></div>
-            <Catalog_item
-                    v-for="product in allProduct"
-                    :key="product.id"
-                    v-bind:product="product"
-                    @sendId="showId"
-            />
+    <div class="shop">
+        <Header/>
+        <Catalog/>
+        <div class="catalog_all">
+            <div class="catalog_menu">
+                <p id="change_category" v-for="category in categories"
+                   :key="category.id"
+                   :category="category"
+                   @click="selectCategories(category.id)"
+                >
+                    {{category.name}}
+                </p>
+            </div>
+            <div class="catalog_item">
+                <Catalog_item
+                        v-for="product in allProduct"
+                        :key="product.id"
+                        v-bind:product="product"
+                        @sendId="showId"
+                />
+            </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -38,7 +42,8 @@
                 products_1: [],
                 products_2: [],
                 products_3: [],
-                allProduct: []
+                allProduct: [],
+                number:[]
             }
         },
         methods: {
@@ -49,14 +54,14 @@
                 console.log(data)
             },
             selectCategories: function (id) {
-                if(id===1){
-                    this.allProduct=this.products_1
+                if (id === 1) {
+                    this.allProduct = this.products_1
                 }
-                if(id===2){
-                    this.allProduct=this.products_2
+                if (id === 2) {
+                    this.allProduct = this.products_2
                 }
-                if(id===3){
-                    this.allProduct=this.products_3
+                if (id === 3) {
+                    this.allProduct = this.products_3
                 }
             },
         },
@@ -105,7 +110,7 @@
         margin-left: 100px;
     }
 
-    .catalog_menu{
+    .catalog_menu {
         width: 160px;
         cursor: pointer;
         font-size: 16px;
@@ -117,7 +122,8 @@
         flex-wrap: wrap;
         margin-left: 100px;
     }
-    #change_category:hover{
+
+    #change_category:hover {
         text-decoration-line: underline;
         color: #1F1F1F
     }

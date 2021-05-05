@@ -46,7 +46,7 @@
         justify-content: space-between;
         font-size: 16px;
         color: #1F1F1F;
-        height: 50px;
+        height: 60px;
         padding: 40px 100px
     }
 

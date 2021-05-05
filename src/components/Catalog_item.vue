@@ -22,10 +22,17 @@
 <script>
     export default {
         name: "Catalog_item",
-        props:['product'],
+        props:{
+            product:{
+                type: Object,
+                default(){
+                    return{}
+                }
+            }
+        },
         methods:{
             buyElement(){
-this.$emit('sendId', this.product.id)
+this.$emit('sendId', this.product)
             }
         },
         data(){
