@@ -1,11 +1,16 @@
 <template>
     <div class="header">
-        <Cart v-if="clickToCart"/>
+        <Cart v-if="clickToCart"
+              @closeCart="closeCart"
+              :cartProduct="cartProduct"
+              @deleteProduct="deleteProductCart"
+        >
+        </Cart>
         <div class="container_header">
             <div class="test">TestList</div>
             <div class="basket" @click="showProducts">
                 <img src='../assets/basket.svg'>
-                <span class="amount_products">0</span>
+                <span class="amount_products">{{cartProduct.length}}</span>
             </div>
         </div>
     </div>
@@ -16,14 +21,28 @@
     export default {
         name: "Header",
         components: {Cart},
+        props:{
+            cartProduct:{
+            type: Array,
+        default(){
+                return[]
+            }
+        }
+    },
         data(){
             return{
-                clickToCart:false
+                clickToCart:false,
+                cartProduct: []
             }
         },
         methods:{
             showProducts(){
                 this.clickToCart=true
+            },
+            closeCart(){
+                this.clickToCart=false
+            },
+            deleteProductCart(){
             }
         }
     }
@@ -56,5 +75,8 @@
         color: #FFFFFF;
         font-size: 8px;
         text-align: center;
+    }
+    .basket{
+        cursor: pointer;
     }
 </style>

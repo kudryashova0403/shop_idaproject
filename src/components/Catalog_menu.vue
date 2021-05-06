@@ -1,6 +1,8 @@
 <template>
     <div class="shop">
-        <Header/>
+        <Header
+        :cartProduct="cartProduct"
+        />
         <Catalog/>
         <div class="catalog_all">
             <div class="catalog_menu">
@@ -43,7 +45,7 @@
                 products_2: [],
                 products_3: [],
                 allProduct: [],
-                number:[]
+                cartProduct:[]
             }
         },
         methods: {
@@ -51,7 +53,9 @@
                 'GET_CATEGORIES_FROM_API'
             ]),
             showId(data) {
-                console.log(data)
+                this.cartProduct.push(data)
+            },
+            deleteCart(data){
             },
             selectCategories: function (id) {
                 if (id === 1) {

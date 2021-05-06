@@ -1,8 +1,6 @@
 <template>
     <div id="app">
-        <Catalog_menu
-                @showId="showId"
-        />
+        <Catalog_menu/>
         <router-view/>
     </div>
 </template>
@@ -13,11 +11,6 @@
     export default {
         name: "app",
         components: {Catalog_menu},
-        methods:{
-           showId(data){
-               console.log(data)
-           }
-        }
     }
 </script>
 
