@@ -7,7 +7,7 @@
         <Catalog/>
         <div class="catalog_all">
             <div class="catalog_menu">
-                <p id="change_category" v-for="category in categories"
+                <p id="change_category" v-for="category in CATEGORIES"
                    :key="category.id"
                    :category="category"
                    @click="selectCategories(category.id)"
@@ -41,7 +41,6 @@
         props: ['product'],
         data() {
             return {
-                categories: [],
                 products_1: [],
                 products_2: [],
                 products_3: [],
@@ -74,13 +73,6 @@
         },
         mounted() {
             this.GET_CATEGORIES_FROM_API()
-            httpClient
-                .get('/product-category')
-                .then(response => this.categories = response.data)
-                .catch(error => {
-                    console.log(error)
-                    this.errored = true
-                })
             httpClient
                 .get('/product?category=1')
                 .then(response => this.products_1 = response.data)
