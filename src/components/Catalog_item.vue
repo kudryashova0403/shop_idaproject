@@ -72,5 +72,7 @@ this.$emit('sendId', this.product)
         color: #1F1F1F;
         font-weight: bold
     }
-    .buy :hover{}
+    .buy {
+        cursor: pointer;
+    }
 </style>

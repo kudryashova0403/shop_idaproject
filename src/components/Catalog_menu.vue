@@ -2,6 +2,7 @@
     <div class="shop">
         <Header
         :cartProduct="cartProduct"
+        @deleteProductCart="deleteProductCart"
         />
         <Catalog/>
         <div class="catalog_all">
@@ -55,7 +56,9 @@
             showId(data) {
                 this.cartProduct.push(data)
             },
-            deleteCart(data){
+            deleteProductCart(index){
+                this.cartProduct.splice(index,1)
+                return this.cartProduct
             },
             selectCategories: function (id) {
                 if (id === 1) {

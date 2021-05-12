@@ -1,9 +1,9 @@
 <template>
     <div class="header">
-        <Cart v-if="clickToCart"
+        <Cart class="cart_back" v-if="clickToCart"
               @closeCart="closeCart"
               :cartProduct="cartProduct"
-              @deleteProduct="deleteProductCart"
+              @deleteProductCart="deleteProductCart"
         >
         </Cart>
         <div class="container_header">
@@ -32,7 +32,7 @@
         data(){
             return{
                 clickToCart:false,
-                cartProduct: []
+                // cartProduct: []
             }
         },
         methods:{
@@ -42,7 +42,8 @@
             closeCart(){
                 this.clickToCart=false
             },
-            deleteProductCart(){
+            deleteProductCart(index){
+                this.$emit('deleteProductCart',index)
             }
         }
     }
@@ -69,6 +70,9 @@
     }
 
     .amount_products {
+        position: static;
+        left:92.36%;
+        top: 16px;
         padding: 6px;
         background: #959DAD;
         border-radius: 100%;
@@ -78,5 +82,9 @@
     }
     .basket{
         cursor: pointer;
+    }
+    .cart_back{
+        /*background: #c15c5c;*/
+        /*opacity: 0.8;*/
     }
 </style>

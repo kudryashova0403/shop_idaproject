@@ -10,7 +10,7 @@
             <div class="content_cart">
                 <div class="product_title">Товары в корзине</div>
                 <div class="product_in_cart">
-                    <Product_cart v-for="cart in cartProduct">
+                    <Product_cart v-for="cart in cartProduct":key="cart.index">
                         <div class="product_container">
                             <div class="product_img">
                                 <img :src="('https://frontend-test.idaproject.com'+cart.photo)" width="100px">
@@ -20,7 +20,7 @@
                                 <p>{{cart.price}}</p>
                                 <p class="star_product"><img src="../assets/star.svg">4.5</p>
                             </div>
-                            <div class="delete_product"><img @click="deleteProduct" src="../assets/trash.svg"></div>
+                            <div class="delete_product"><img @click="deleteProductCart" src="../assets/trash.svg"></div>
                         </div>
                         </Product_cart>
                 </div>
@@ -38,9 +38,9 @@
         components: {Product_cart},
         props: {
             cartProduct: {
-                type: Object,
+                type: Array,
                 default() {
-                    return {}
+                    return []
                 }
             }
         },
@@ -48,8 +48,8 @@
             closeProducts() {
                 this.$emit('closeCart')
             },
-            deleteProduct() {
-                this.$emit('deleteProductCart')
+            deleteProductCart() {
+                this.$emit('deleteProductCart',this.cartProduct)
             }
         }
     }
@@ -62,14 +62,14 @@
     }
 
     .cart_container {
-        position: fixed;
+        position: absolute;
         width: 460px;
         left: 980px;
         top: 0px;
         background: #FFFFFF;
         box-shadow: -4px 0px 16px rgba(0, 0, 0, 0.05);
         border-radius: 8px 0px 0px 8px;
-        padding: 50px;
+        padding: 50px 0px 50px 50px;
         overflow: auto;
     }
 
@@ -87,6 +87,7 @@
     .cart_close {
         padding-top: 5px;
         cursor: pointer;
+        padding-right: 80px;
     }
 
     .product_title {
@@ -99,5 +100,8 @@
     .product_in_cart {
         display: flex;
         flex-wrap: wrap;
+    }
+    .delete_product{
+        cursor: pointer;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Catalog_menu/>
-        <router-view/>
+<!--        <router-view/>-->
     </div>
 </template>
 
@@ -19,6 +19,6 @@
     #app {
         font-family: PT Sans, sans-serif;
         background: #FFFFFF;
-        width: 1440px;
+        /*width: 1440px;*/
     }
 </style>
