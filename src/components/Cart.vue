@@ -44,9 +44,11 @@
                            type="text"
                            v-model="firstName"
                     >
-                    <input class="form" placeholder="Телефон" type="tel" pattern="+7[0-9]{3}-[0-9]{2}-[0-9]{2}"
-                           v-model="phone"
-                    >
+<!--                    <input class="form" placeholder="Телефон" type="tel" pattern="+7[0-9]{3}-[0-9]{2}-[0-9]{2}"-->
+<!--                           v-model="phone"-->
+<!--                    >-->
+                    <masked-input class="form" v-model = "phone" mask = "\ + \ 1 (111) 111-1111" placeholder = "Номер телефона" type = "tel" />
+
                     <input class="form" placeholder="Адрес" type="text"
                            v-model="address">
                     <input
@@ -66,10 +68,11 @@
 <script>
     import Product_cart from "./Product_cart";
     import Send from "./Send";
+    import MaskedInput from 'vue-masked-input';
 
     export default {
         name: "Cart",
-        components: {Send, Product_cart},
+        components: {Send, Product_cart, MaskedInput},
         data() {
             return {
                 sendApplication: false,
