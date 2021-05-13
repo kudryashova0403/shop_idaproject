@@ -1,8 +1,9 @@
 <template>
     <div class="shop">
         <Header
-        :cartProduct="cartProduct"
-        @deleteProductCart="deleteProductCart"
+                :cartProduct="cartProduct"
+                @deleteProductCart="deleteProductCart"
+                @removeProducts="removeProducts"
         />
         <Catalog/>
         <div class="catalog_all">
@@ -16,6 +17,13 @@
                 </p>
             </div>
             <div class="catalog_item">
+                <Catalog_item
+                        v-if="!allProduct.length"
+                        v-for="product in products_1"
+                        :key="product.id"
+                        v-bind:product="product"
+                        @sendId="showId"
+                />
                 <Catalog_item
                         v-for="product in allProduct"
                         :key="product.id"
@@ -34,7 +42,6 @@
     import Catalog from "./Catalog";
     import {mapActions, mapGetters} from 'vuex'
     import httpClient from '@/vuex/product.js'
-
     export default {
         name: "Catalog_menu",
         components: {Catalog, Header, Catalog_item},
@@ -45,7 +52,7 @@
                 products_2: [],
                 products_3: [],
                 allProduct: [],
-                cartProduct:[]
+                cartProduct: []
             }
         },
         methods: {
@@ -55,9 +62,15 @@
             showId(data) {
                 this.cartProduct.push(data)
             },
-            deleteProductCart(index){
-                this.cartProduct.splice(index,1)
+            deleteProductCart(index) {
+                this.cartProduct.splice(index, 1)
                 return this.cartProduct
+            },
+            removeProducts(arr){
+                console.log(arr)
+                while (arr.length) {
+                    arr.pop();
+                }
             },
             selectCategories: function (id) {
                 if (id === 1) {

@@ -4,6 +4,7 @@
               @closeCart="closeCart"
               :cartProduct="cartProduct"
               @deleteProductCart="deleteProductCart"
+              @removeProducts="removeProducts"
         >
         </Cart>
         <div class="container_header">
@@ -18,32 +19,36 @@
 
 <script>
     import Cart from "./Cart";
+
     export default {
         name: "Header",
         components: {Cart},
-        props:{
-            cartProduct:{
-            type: Array,
-        default(){
-                return[]
+        props: {
+            cartProduct: {
+                type: Array,
+                default() {
+                    return []
+                }
             }
-        }
-    },
-        data(){
-            return{
-                clickToCart:false,
+        },
+        data() {
+            return {
+                clickToCart: false,
                 // cartProduct: []
             }
         },
-        methods:{
-            showProducts(){
-                this.clickToCart=true
+        methods: {
+            showProducts() {
+                this.clickToCart = true
             },
-            closeCart(){
-                this.clickToCart=false
+            closeCart() {
+                this.clickToCart = false
             },
-            deleteProductCart(index){
-                this.$emit('deleteProductCart',index)
+            deleteProductCart(index) {
+                this.$emit('deleteProductCart', index)
+            },
+            removeProducts(arr) {
+                this.$emit('removeProducts', arr)
             }
         }
     }
@@ -71,7 +76,7 @@
 
     .amount_products {
         position: static;
-        left:92.36%;
+        left: 92.36%;
         top: 16px;
         padding: 6px;
         background: #959DAD;
@@ -80,11 +85,9 @@
         font-size: 8px;
         text-align: center;
     }
-    .basket{
+
+    .basket {
         cursor: pointer;
     }
-    .cart_back{
-        /*background: #c15c5c;*/
-        /*opacity: 0.8;*/
-    }
+
 </style>

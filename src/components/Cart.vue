@@ -7,15 +7,18 @@
                     <img src='../assets/close.svg'>
                 </div>
             </div>
-            <div class="empty" v-if="!cartProduct.length">
+            <div class="empty" v-if="!cartProduct.length && !sendApplication">
                 Пока что вы ничего не добавили
                 в корзину.
                 <input type="submit" @click="closeProducts" class="sendProduct" value="Перейти к выбору">
             </div>
+            <Send
+                    v-if="sendApplication"
+            />
             <div class="content_cart" v-if="cartProduct.length">
                 <div class="product_title">Товары в корзине</div>
                 <div class="product_in_cart">
-                    <Product_cart v-for="cart in cartProduct":key="cart.index">
+                    <Product_cart v-for="cart in cartProduct" :key="cart.index">
                         <div class="product_container">
                             <div class="product_img">
                                 <img :src="('https://frontend-test.idaproject.com'+cart.photo)" width="100px">
@@ -25,17 +28,36 @@
                                 <p>{{cart.price}}</p>
                                 <p class="star_product"><img src="../assets/star.svg">4.5</p>
                             </div>
-                            <div class="delete_product"><img @click="deleteProductCart" src="../assets/trash.svg"></div>
+                            <div class="delete_product"><img @click="deleteProductCart" src="../assets/trash.svg">
+                            </div>
                         </div>
-                        </Product_cart>
+                    </Product_cart>
                 </div>
             </div>
             <div class="request" v-if="cartProduct.length">
                 <div class="request_title">Оформить заказ</div>
-                <input class="form" placeholder="Ваше имя" type="text">
-                <input class="form" placeholder="Телефон" type="tel" pattern="+7[0-9]{3}-[0-9]{2}-[0-9]{2}">
-                <input class="form" placeholder="Адрес" type="text">
-                <input class="sendProduct" type="submit" value="Отправить">
+                <form
+                        @submit="checkForm"
+                        novalidate="true"
+                >
+                    <input class="form" placeholder="Ваше имя"
+                           type="text"
+                           v-model="firstName"
+                    >
+                    <input class="form" placeholder="Телефон" type="tel" pattern="+7[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                           v-model="phone"
+                    >
+                    <input class="form" placeholder="Адрес" type="text"
+                           v-model="address">
+                    <input
+                            class="sendProduct" type="submit"
+                            value="Отправить">
+                    <div v-if="errors.length">
+                        <ul>
+                            <li id="error" v-for="error in errors"><span>&#10071;  </span>{{ error }}</li>
+                        </ul>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -43,10 +65,20 @@
 
 <script>
     import Product_cart from "./Product_cart";
+    import Send from "./Send";
 
     export default {
         name: "Cart",
-        components: {Product_cart},
+        components: {Send, Product_cart},
+        data() {
+            return {
+                sendApplication: false,
+                firstName: null,
+                phone: null,
+                address: null,
+                errors: []
+            }
+        },
         props: {
             cartProduct: {
                 type: Array,
@@ -60,21 +92,41 @@
                 this.$emit('closeCart')
             },
             deleteProductCart() {
-                this.$emit('deleteProductCart',this.cartProduct)
+                this.$emit('deleteProductCart', this.cartProduct)
+            },
+            checkForm: function (e) {
+                this.errors = [];
+
+                if (!this.firstName) {
+                    this.errors.push('Укажите имя.');
+                }
+                if (!this.phone) {
+                    this.errors.push('Укажите телефон.');
+                }
+                if (!this.address) {
+                    this.errors.push('Укажите адрес.');
+                }
+                if (!this.errors.length) {
+                    this.sendApplication = true
+                    this.$emit('removeProducts', this.cartProduct)
+                    // return true;
+                }
+                e.preventDefault();
             }
         }
     }
 </script>
 
 <style scoped>
-    .modal{
+    .modal {
+        position: absolute;
+        right: 0%;
+        top: 0px;
+        display: flex;
     }
 
     .cart_container {
-        position: absolute;
         width: 460px;
-        right: 0%;
-        top: 0px;
         background: #FFFFFF;
         box-shadow: -4px 0px 16px rgba(0, 0, 0, 0.05);
         border-radius: 8px 0px 0px 8px;
@@ -110,14 +162,16 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .request{
+
+    .request {
         display: flex;
         flex-direction: column;
         margin-top: 32px;
         font-size: 18px;
         color: #59606D;
     }
-    .form{
+
+    .form {
         width: 350px;
         height: 50px;
         margin-top: 16px;
@@ -128,11 +182,13 @@
         color: #1F1F1F;
         padding-left: 14px;
     }
-    .form::placeholder{
+
+    .form::placeholder {
         font-size: 16px;
         color: #959DAD;
     }
-    .sendProduct{
+
+    .sendProduct {
         margin-top: 16px;
         width: 364px;
         height: 50px;
@@ -142,14 +198,23 @@
         font-size: 16px;
         cursor: pointer;
     }
-    .sendProduct:hover{
+
+    .sendProduct:hover {
         background: #59606D;
     }
-    .empty{
+
+    .empty {
         width: 364px;
         font-size: 22px;
         line-height: 28px;
         color: #000000;
         padding-top: 24px;
+    }
+    #error{
+        font-size: 14px;
+        list-style-type:none;
+    }
+    ul{
+        padding: 0px;
     }
 </style>
