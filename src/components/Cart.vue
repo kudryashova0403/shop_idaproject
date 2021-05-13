@@ -44,10 +44,7 @@
                            type="text"
                            v-model="firstName"
                     >
-<!--                    <input class="form" placeholder="Телефон" type="tel" pattern="+7[0-9]{3}-[0-9]{2}-[0-9]{2}"-->
-<!--                           v-model="phone"-->
-<!--                    >-->
-                    <masked-input class="form" v-model = "phone" mask = "\ + \ 1 (111) 111-1111" placeholder = "Номер телефона" type = "tel" />
+                    <masked-input class="form" v-model = "phone" mask = "\+\7 (111) 111-11-11" placeholder = "Номер телефона" type = "tel" />
 
                     <input class="form" placeholder="Адрес" type="text"
                            v-model="address">
