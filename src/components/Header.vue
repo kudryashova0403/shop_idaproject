@@ -34,7 +34,6 @@
         data() {
             return {
                 clickToCart: false,
-                // cartProduct: []
             }
         },
         methods: {
@@ -75,19 +74,22 @@
     }
 
     .amount_products {
-        position: static;
-        left: 92.36%;
-        top: 16px;
-        padding: 6px;
+        margin-left: -7px;
+        margin-top: -5px;
+        height: 12px;
+        width: 12px;
         background: #959DAD;
         border-radius: 100%;
         color: #FFFFFF;
         font-size: 8px;
-        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
     }
 
     .basket {
         cursor: pointer;
+        display: flex;
     }
 
 </style>
