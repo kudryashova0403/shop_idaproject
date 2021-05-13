@@ -45,7 +45,6 @@
                            v-model="firstName"
                     >
                     <masked-input class="form" v-model = "phone" mask = "\+\7 (111) 111-11-11" placeholder = "Номер телефона" type = "tel" />
-
                     <input class="form" placeholder="Адрес" type="text"
                            v-model="address">
                     <input
